@@ -7,7 +7,7 @@ function MainContent() {
         minHeight: "200px",
       }}
     >
-      <p>Welcome to my React application showcasing my favorite cities!</p>
+      <p>I love to visit New York, Paris, and Tokyo.</p>
     </main>
   );
 }
