@@ -1,19 +1,20 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function UserProfile({ name, email, avatarUrl }) {
   return (
-    <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg overflow-hidden">
-      <img
-        src={avatarUrl}
-        alt={`${name}'s avatar`}
-        className="w-full h-48 object-cover"
-      />
-      <div className="p-4">
-        <h2 className="text-xl font-semibold text-gray-800">{name}</h2>
-        <p className="text-gray-600">{email}</p>
-      </div>
+    <div>
+      <img src={avatarUrl} alt="User avatar" />
+      <h2>{name}</h2>
+      <p>{email}</p>
     </div>
   );
 }
+
+UserProfile.propTypes = {
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  avatarUrl: PropTypes.string.isRequired,
+};
 
 export default UserProfile;
