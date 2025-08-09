@@ -6,24 +6,36 @@ import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Recipe Sharing App</h1>
-      <nav>
-        <Link to="/">Home</Link>
-      </nav>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <SearchBar />
-              <AddRecipeForm />
-              <RecipeList />
-            </>
-          }
-        />
-        <Route path="/recipe/:id" element={<RecipeDetails />} />
-      </Routes>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <header className="mb-6">
+        <h1 className="text-4xl font-bold text-gray-800 mb-4">
+          Recipe Sharing App
+        </h1>
+        <nav className="bg-white shadow rounded-lg p-4">
+          <Link
+            to="/"
+            className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+          >
+            Home
+          </Link>
+        </nav>
+      </header>
+
+      <main>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="space-y-6">
+                <SearchBar />
+                <AddRecipeForm />
+                <RecipeList />
+              </div>
+            }
+          />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
+        </Routes>
+      </main>
     </div>
   );
 }
