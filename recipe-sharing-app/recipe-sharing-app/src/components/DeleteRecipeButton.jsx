@@ -1,4 +1,4 @@
-import { useRecipeStore } from "./recipeStore";
+import useRecipeStore from "./recipeStore"; // relative path from components folder
 
 const DeleteRecipeButton = ({ recipeId }) => {
   const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);

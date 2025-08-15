@@ -1,6 +1,6 @@
 // RecipeDetails.jsx
 import { useParams } from "react-router-dom";
-import { useRecipeStore } from "./recipeStore";
+import useRecipeStore from "./recipeStore"; // relative path from components folder
 import EditRecipeForm from "./EditRecipeForm";
 import DeleteRecipeButton from "./DeleteRecipeButton";
 

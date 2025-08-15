@@ -1,6 +1,6 @@
 // src/components/RecipeList.jsx
 import React from "react";
-import useRecipeStore from "../store/recipeStore";
+import useRecipeStore from "./recipeStore"; // relative path from components folder
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) =>

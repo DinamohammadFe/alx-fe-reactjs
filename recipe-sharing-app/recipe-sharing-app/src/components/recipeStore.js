@@ -14,10 +14,9 @@ const useRecipeStore = create((set, get) => ({
   deleteRecipe: (id) =>
     set((state) => ({ recipes: state.recipes.filter((r) => r.id !== id) })),
 
-  // Search & Filter
-  searchTerm: "", // ✅ must be here
+  // ✅ Search term
+  searchTerm: "",
   setSearchTerm: (term) => {
-    // ✅ must be here
     set({ searchTerm: term });
     get().filterRecipes();
   },
