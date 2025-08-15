@@ -1,41 +1,27 @@
-import { Routes, Route, Link } from "react-router-dom";
-import RecipeList from "./components/RecipeList";
+import React from "react";
 import AddRecipeForm from "./components/AddRecipeForm";
-import RecipeDetails from "./components/RecipeDetails";
 import SearchBar from "./components/SearchBar";
+import RecipeList from "./components/RecipeList";
+import FavoritesList from "./components/FavoritesList";
+import RecommendationsList from "./components/RecommendationsList";
+import useRecipeStore from "./components/recipeStore";
 
 function App() {
-  return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <header className="mb-6">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          Recipe Sharing App
-        </h1>
-        <nav className="bg-white shadow rounded-lg p-4">
-          <Link
-            to="/"
-            className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
-          >
-            Home
-          </Link>
-        </nav>
-      </header>
+  const generateRecommendations = useRecipeStore(
+    (state) => state.generateRecommendations
+  );
 
-      <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <div className="space-y-6">
-                <SearchBar />
-                <AddRecipeForm />
-                <RecipeList />
-              </div>
-            }
-          />
-          <Route path="/recipe/:id" element={<RecipeDetails />} />
-        </Routes>
-      </main>
+  return (
+    <div style={{ maxWidth: "600px", margin: "0 auto", padding: "16px" }}>
+      <h1>Recipe Sharing App</h1>
+      <AddRecipeForm />
+      <SearchBar />
+      <RecipeList />
+      <FavoritesList />
+      <button onClick={generateRecommendations}>
+        Generate Recommendations
+      </button>
+      <RecommendationsList />
     </div>
   );
 }
