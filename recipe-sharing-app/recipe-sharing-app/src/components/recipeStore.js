@@ -1,4 +1,4 @@
-// src/store/recipeStore.jsx
+// src/components/recipeStore.js
 import create from "zustand";
 
 const useRecipeStore = create((set, get) => ({
@@ -15,10 +15,11 @@ const useRecipeStore = create((set, get) => ({
     set((state) => ({ recipes: state.recipes.filter((r) => r.id !== id) })),
 
   // Search & Filter
-  searchTerm: "",
+  searchTerm: "", // ✅ must be here
   setSearchTerm: (term) => {
+    // ✅ must be here
     set({ searchTerm: term });
-    get().filterRecipes(); // automatically filter when term changes
+    get().filterRecipes();
   },
   filteredRecipes: [],
   filterRecipes: () =>

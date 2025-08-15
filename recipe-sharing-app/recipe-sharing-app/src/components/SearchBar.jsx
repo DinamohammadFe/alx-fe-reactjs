@@ -1,6 +1,6 @@
 // src/components/SearchBar.jsx
 import React from "react";
-import useRecipeStore from "../store/recipeStore";
+import useRecipeStore from "./recipeStore"; // now points to components/recipeStore.js
 
 const SearchBar = () => {
   const setSearchTerm = useRecipeStore((state) => state.setSearchTerm);
