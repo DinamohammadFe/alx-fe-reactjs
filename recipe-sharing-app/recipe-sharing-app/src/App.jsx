@@ -1,7 +1,6 @@
-// src/App.jsx
 import React from "react";
-import SearchBar from "./components/SearchBar";
 import AddRecipeForm from "./components/AddRecipeForm";
+import SearchBar from "./components/SearchBar";
 import RecipeList from "./components/RecipeList";
 
 function App() {

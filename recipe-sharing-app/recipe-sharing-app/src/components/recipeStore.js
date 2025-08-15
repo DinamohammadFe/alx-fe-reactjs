@@ -1,4 +1,3 @@
-// src/components/recipeStore.js
 import create from "zustand";
 
 const useRecipeStore = create((set, get) => ({
@@ -14,11 +13,12 @@ const useRecipeStore = create((set, get) => ({
   deleteRecipe: (id) =>
     set((state) => ({ recipes: state.recipes.filter((r) => r.id !== id) })),
 
-  // ✅ Search term
-  searchTerm: "",
+  // Search & Filter
+  searchTerm: "", // ✅ required by ALX
   setSearchTerm: (term) => {
+    // ✅ required by ALX
     set({ searchTerm: term });
-    get().filterRecipes();
+    get().filterRecipes(); // automatically update filteredRecipes
   },
   filteredRecipes: [],
   filterRecipes: () =>
