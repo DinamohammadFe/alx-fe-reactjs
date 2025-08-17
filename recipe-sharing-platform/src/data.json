@@ -3,18 +3,64 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/300"
+    "image": "https://via.placeholder.com/300",
+    "ingredients": [
+      "200g spaghetti",
+      "2 large eggs",
+      "60g Pecorino Romano (grated)",
+      "80g guanciale or bacon (diced)",
+      "Freshly ground black pepper",
+      "Salt"
+    ],
+    "instructions": [
+      "Boil pasta in salted water until al dente.",
+      "Cook guanciale/bacon until crispy; remove from heat.",
+      "Whisk eggs with cheese and pepper.",
+      "Toss hot pasta with bacon fat, then mix in egg-cheese off heat.",
+      "Add crispy guanciale and more pepper; serve immediately."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
-    "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/300"
+    "summary": "Chunks of grilled chicken cooked in a buttery, creamy tomato-based gravy.",
+    "image": "https://via.placeholder.com/300",
+    "ingredients": [
+      "500g chicken breast (cubed)",
+      "1 cup yogurt",
+      "2 tsp garam masala",
+      "1 tsp cumin",
+      "1 tsp paprika",
+      "2 cups tomato puree",
+      "1/2 cup cream",
+      "2 tbsp butter",
+      "Salt, pepper"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and spices for 30+ minutes.",
+      "Grill or pan-sear chicken until charred.",
+      "Simmer tomato puree with butter and spices.",
+      "Stir in cream; add chicken and simmer 5–10 minutes.",
+      "Adjust seasoning and serve with rice or naan."
+    ]
   },
   {
     "id": 3,
     "title": "Avocado Salad",
     "summary": "A refreshing salad with avocado, tomato, onion, and a light lemon dressing.",
-    "image": "https://via.placeholder.com/300"
+    "image": "https://via.placeholder.com/300",
+    "ingredients": [
+      "2 ripe avocados (diced)",
+      "1 cup cherry tomatoes (halved)",
+      "1/4 red onion (thinly sliced)",
+      "2 tbsp olive oil",
+      "1 tbsp lemon juice",
+      "Salt, pepper"
+    ],
+    "instructions": [
+      "Whisk olive oil, lemon, salt, and pepper.",
+      "Combine avocado, tomato, and onion.",
+      "Toss gently with dressing and serve."
+    ]
   }
 ]
