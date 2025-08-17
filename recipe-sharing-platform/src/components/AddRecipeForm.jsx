@@ -3,66 +3,83 @@ import React, { useState } from "react";
 const AddRecipeForm = ({ addRecipe }) => {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [instructions, setInstructions] = useState("");
-  const [steps, setSteps] = useState(""); // ✅ NEW field for steps
+  const [steps, setSteps] = useState("");
+  const [errors, setErrors] = useState({}); // ✅ errors state
+
+  // ✅ validation function
+  const validate = () => {
+    let newErrors = {};
+    if (!title.trim()) newErrors.title = "Title is required";
+    if (!ingredients.trim()) newErrors.ingredients = "Ingredients are required";
+    if (!steps.trim()) newErrors.steps = "Steps are required";
+    return newErrors;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!title || !ingredients || !instructions || !steps) {
-      alert("Please fill in all fields");
+    const validationErrors = validate(); // ✅ use validate
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors); // ✅ update errors
       return;
     }
 
-    addRecipe({
+    const newRecipe = {
+      id: Date.now(),
       title,
       ingredients,
-      instructions,
-      steps, // ✅ include steps in recipe object
-    });
+      steps,
+    };
 
-    // reset form
+    addRecipe(newRecipe);
     setTitle("");
     setIngredients("");
-    setInstructions("");
     setSteps("");
+    setErrors({});
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded-lg">
-      <input
-        type="text"
-        placeholder="Recipe Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full p-2 border rounded"
-      />
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-md mx-auto p-4 bg-white shadow-md rounded"
+    >
+      <h2 className="text-xl font-bold mb-4">Add New Recipe</h2>
 
-      <textarea
-        placeholder="Ingredients (comma separated)"
-        value={ingredients}
-        onChange={(e) => setIngredients(e.target.value)}
-        className="w-full p-2 border rounded"
-      />
+      <div className="mb-3">
+        <input
+          type="text"
+          placeholder="Recipe Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full border p-2 rounded"
+        />
+        {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
+      </div>
 
-      <textarea
-        placeholder="Instructions"
-        value={instructions}
-        onChange={(e) => setInstructions(e.target.value)}
-        className="w-full p-2 border rounded"
-      />
+      <div className="mb-3">
+        <textarea
+          placeholder="Ingredients"
+          value={ingredients}
+          onChange={(e) => setIngredients(e.target.value)}
+          className="w-full border p-2 rounded"
+        />
+        {errors.ingredients && (
+          <p className="text-red-500 text-sm">{errors.ingredients}</p>
+        )}
+      </div>
 
-      {/* ✅ New steps field */}
-      <textarea
-        placeholder="Steps"
-        value={steps}
-        onChange={(e) => setSteps(e.target.value)}
-        className="w-full p-2 border rounded"
-      />
+      <div className="mb-3">
+        <textarea
+          placeholder="Steps"
+          value={steps}
+          onChange={(e) => setSteps(e.target.value)}
+          className="w-full border p-2 rounded"
+        />
+        {errors.steps && <p className="text-red-500 text-sm">{errors.steps}</p>}
+      </div>
 
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
       >
         Add Recipe
       </button>
