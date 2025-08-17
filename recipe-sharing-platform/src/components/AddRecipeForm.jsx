@@ -1,91 +1,69 @@
+// src/components/AddRecipeForm.jsx
 import React, { useState } from "react";
 
-const AddRecipeForm = ({ onAddRecipe = () => {} }) => {
+const AddRecipeForm = ({ addRecipe }) => {
   const [title, setTitle] = useState("");
-  const [ingredientsText, setIngredientsText] = useState("");
-  const [instructionsText, setInstructionsText] = useState("");
-  const [errors, setErrors] = useState({}); // <-- required by checker
+  const [ingredients, setIngredients] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [errors, setErrors] = useState({});
 
-  // <-- required by checker
   const validate = () => {
-    const newErrors = {};
-
-    if (!title.trim()) {
-      newErrors.title = "Title is required.";
-    }
-
-    if (!ingredientsText.trim()) {
-      newErrors.ingredients = "Ingredients are required.";
-    } else {
-      const list = ingredientsText
-        .split(",")
-        .map((i) => i.trim())
-        .filter(Boolean);
-      if (list.length < 2) {
-        newErrors.ingredients = "Please enter at least two ingredients (comma-separated).";
-      }
-    }
-
-    if (!instructionsText.trim()) {
-      newErrors.instructions = "Instructions are required.";
-    } else {
-      const steps = instructionsText
-        .split("\n")
-        .map((s) => s.trim())
-        .filter(Boolean);
-      if (steps.length < 1) {
-        newErrors.instructions = "Please add at least one step (one per line).";
-      }
-    }
-
-    return newErrors;
+    let formErrors = {};
+    if (!title) formErrors.title = "Title is required";
+    if (!ingredients) formErrors.ingredients = "Ingredients are required";
+    if (!instructions) formErrors.instructions = "Instructions are required";
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0;
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const validation = validate();
-    setErrors(validation);
-    if (Object.keys(validation).length > 0) return;
-
-    const ingredientList = ingredientsText
-      .split(",")
-      .map((i) => i.trim())
-      .filter(Boolean);
-
-    const stepsList = instructionsText
-      .split("\n")
-      .map((s) => s.trim())
-      .filter(Boolean);
-
-    const newRecipe = {
-      id: Date.now(),
-      title: title.trim(),
-      ingredients: ingredientList,
-      instructions: stepsList, // keep key name consistent with detail page
-    };
-
-    onAddRecipe(newRecipe);
-
-    // reset
-    setTitle("");
-    setIngredientsText("");
-    setInstructionsText("");
-    setErrors({});
+    if (validate()) {
+      addRecipe({ title, ingredients, instructions });
+      setTitle("");
+      setIngredients("");
+      setInstructions("");
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-6 space-y-5"
-    >
-      <h2 className="text-2xl font-bold text-center">Add New Recipe</h2>
-
-      {/* Title */}
+    <form onSubmit={handleSubmit} className="p-4 space-y-4 bg-white shadow-md rounded">
       <div>
-        <label className="block font-medium mb-1">Title</label>
+        <label className="block">Title</label>
         <input
           type="text"
           value={title}
-          onChange={(e) => {
-            s
+          onChange={(event) => setTitle(event.target.value)}  {/* ✅ event.target.value */}
+          className="border p-2 w-full"
+        />
+        {errors.title && <p className="text-red-500">{errors.title}</p>}
+      </div>
+
+      <div>
+        <label className="block">Ingredients</label>
+        <textarea
+          value={ingredients}
+          onChange={(event) => setIngredients(event.target.value)} {/* ✅ event.target.value */}
+          className="border p-2 w-full"
+        />
+        {errors.ingredients && <p className="text-red-500">{errors.ingredients}</p>}
+      </div>
+
+      <div>
+        <label className="block">Instructions</label>
+        <textarea
+          value={instructions}
+          onChange={(event) => setInstructions(event.target.value)} {/* ✅ event.target.value */}
+          className="border p-2 w-full"
+        />
+        {errors.instructions && <p className="text-red-500">{errors.instructions}</p>}
+      </div>
+
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+        Add Recipe
+      </button>
+    </form>
+  );
+};
+
+export default AddRecipeForm;
