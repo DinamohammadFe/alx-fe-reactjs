@@ -1,15 +1,29 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./components/HomePage";
-import RecipeDetail from "./components/RecipeDetail";
+import AddRecipeForm from "./components/AddRecipeForm";
+import { useState } from "react";
 
 function App() {
+  const [recipes, setRecipes] = useState([]);
+
+  const handleAddRecipe = (recipe) => {
+    setRecipes([...recipes, recipe]);
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/recipe/:id" element={<RecipeDetail />} />
-      </Routes>
-    </Router>
+    <div className="p-6">
+      <AddRecipeForm onAddRecipe={handleAddRecipe} />
+
+      {/* Preview recipes */}
+      <div className="mt-6">
+        <h2 className="text-xl font-semibold">All Recipes</h2>
+        <ul className="list-disc ml-6">
+          {recipes.map((r) => (
+            <li key={r.id}>
+              <strong>{r.title}</strong> - {r.ingredients.join(", ")}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
