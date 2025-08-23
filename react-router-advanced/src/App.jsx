@@ -5,7 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PostsComponent from "./components/PostsComponent";
-import BlogPost from "./components/BlogPost"; // ✅ Import BlogPost
+import BlogPost from "./components/BlogPost";
+import Profile from "./components/Profile"; // ✅ Import Profile
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,7 @@ function App() {
             {/* Public route */}
             <Route path="/" element={<h1>Welcome to the App 🚀</h1>} />
 
-            {/* Protected route */}
+            {/* Protected routes */}
             <Route
               path="/posts"
               element={
@@ -27,8 +28,16 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile /> {/* ✅ Protected Profile Route */}
+                </ProtectedRoute>
+              }
+            />
 
-            {/* ✅ Dynamic route */}
+            {/* Dynamic route for blog post */}
             <Route path="/blog/:id" element={<BlogPost />} />
           </Routes>
         </Router>
