@@ -1,18 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const fetchPosts = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  return res.json();
+  const { data } = await axios.get(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+  return data;
 };
 
 export default function PostsComponent() {
-  const { data, error, isLoading, isError, isFetching } = useQuery({
+  const { data, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    staleTime: 5000, // 👈 added staleTime (5 seconds)
-    cacheTime: 1000 * 60 * 5, // 5 minutes
-    refetchOnWindowFocus: false,
+    staleTime: 5000,
+    cacheTime: 1000 * 60 * 5,
     keepPreviousData: true,
+    refetchOnWindowFocus: false,
   });
 
   if (isLoading) return <p>Loading...</p>;
@@ -20,11 +23,18 @@ export default function PostsComponent() {
 
   return (
     <div>
-      <h2>Posts</h2>
-      {isFetching && <p>Updating...</p>}
-      <ul>
-        {data.map((post) => (
-          <li key={post.id}>{post.title}</li>
+      <h2 className="text-xl font-bold mb-4">Posts</h2>
+      <button
+        onClick={() => refetch()}
+        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+      >
+        Refetch Posts
+      </button>
+      <ul className="list-disc pl-6">
+        {data.slice(0, 5).map((post) => (
+          <li key={post.id} className="mb-2">
+            {post.title}
+          </li>
         ))}
       </ul>
     </div>
