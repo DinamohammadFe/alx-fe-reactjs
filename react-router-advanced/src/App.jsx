@@ -1,45 +1,35 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./components/Home";
-import About from "./components/About";
-import Profile from "./components/Profile";
-import BlogPost from "./components/BlogPost";
+// src/App.jsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PostsComponent from "./components/PostsComponent";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <Router>
-      <nav style={{ padding: "10px", background: "#eee" }}>
-        <Link to="/" style={{ margin: "0 10px" }}>
-          Home
-        </Link>
-        <Link to="/about" style={{ margin: "0 10px" }}>
-          About
-        </Link>
-        <Link to="/profile" style={{ margin: "0 10px" }}>
-          Profile
-        </Link>
-        <Link to="/blog/42" style={{ margin: "0 10px" }}>
-          Blog Post 42
-        </Link>
-      </nav>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            {/* Public route */}
+            <Route path="/" element={<h1>Welcome to the App 🚀</h1>} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-
-        {/* Protected Profile Route */}
-        <Route
-          path="/profile/*"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route path="/blog/:id" element={<BlogPost />} />
-      </Routes>
-    </Router>
+            {/* Protected route */}
+            <Route
+              path="/posts"
+              element={
+                <ProtectedRoute>
+                  <PostsComponent />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
 
