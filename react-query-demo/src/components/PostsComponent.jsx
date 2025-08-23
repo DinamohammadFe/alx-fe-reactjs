@@ -1,36 +1,40 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchPosts = async () => {
-  const response = await axios.get(
+  const { data } = await axios.get(
     "https://jsonplaceholder.typicode.com/posts"
   );
-  return response.data;
+  return data;
 };
 
-const PostsComponent = () => {
-  const { data, error, isLoading, isError } = useQuery({
+export default function PostsComponent() {
+  const {
+    data: posts,
+    isLoading,
+    isError,
+    error,
+    isFetching,
+  } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    staleTime: 5000, // cache data for 5 seconds
+    cacheTime: 1000 * 60 * 5, // 5 minutes cache
+    refetchOnWindowFocus: false, // won't refetch every time window is focused
+    keepPreviousData: true, // keep showing old data while fetching new
   });
 
-  if (isLoading) return <p>Loading posts...</p>;
+  if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;
 
   return (
     <div>
       <h2>Posts</h2>
+      {isFetching && <p>Updating...</p>}
       <ul>
-        {data.slice(0, 5).map((post) => (
-          <li key={post.id}>
-            <strong>{post.title}</strong>
-          </li>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
         ))}
       </ul>
     </div>
   );
-};
-
-export default PostsComponent;
+}
