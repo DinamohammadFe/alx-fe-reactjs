@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "./components/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PostsComponent from "./components/PostsComponent";
+import BlogPost from "./components/BlogPost"; // ✅ Import BlogPost
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,9 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
+            {/* ✅ Dynamic route */}
+            <Route path="/blog/:id" element={<BlogPost />} />
           </Routes>
         </Router>
       </AuthProvider>
